@@ -1,0 +1,313 @@
+<html><head><base href="." target="_blank">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Waste South Africa | Home</title>
+<style>
+:root {
+    --primary: #2C5F2D;
+    --secondary: #97BC62;
+    --dark: #1a1a1a;
+    --light: #f5f5f5;
+    --accent: #FF6B6B;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+nav {
+    background-color: rgba(44, 95, 45, 0.95);
+    padding: 1.5rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+nav.scrolled {
+    padding: 1rem;
+    background-color: rgba(44, 95, 45, 0.98);
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 3rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--secondary);
+    transition: all 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 80%;
+    left: 10%;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b') center/cover;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(44, 95, 45, 0.3), rgba(151, 188, 98, 0.3));
+    animation: gradientShift 10s infinite alternate;
+}
+
+@keyframes gradientShift {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.7; }
+}
+
+.hero-content {
+    max-width: 800px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+}
+
+.mission-section {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    padding: 6rem 2rem;
+    color: white;
+    clip-path: polygon(0 0, 100% 5%, 100% 95%, 0 100%);
+    margin: 4rem 0;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mission-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+.mission-card:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.mission-card:nth-child(3) {
+    animation-delay: 2s;
+}
+
+.mission-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.mission-card:hover .mission-icon {
+    transform: rotate(360deg);
+}
+
+.content-section {
+    padding: 6rem 2rem;
+    background: white;
+    position: relative;
+}
+
+.content-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: white;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+    color: var(--primary);
+    font-size: 2.5rem;
+}
+
+.cta-section {
+    background: var(--dark);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    background: #ff8383;
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="crisis.html">Contents</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>South Africa's E-Waste Crisis</h1>
+        <p>Understanding and Addressing Our Digital Footprint</p>
+    </div>
+    <div class="scroll-indicator">
+        <svg width="30" height="50" viewBox="0 0 30 50" fill="none">
+            <rect x="5" y="5" width="20" height="40" rx="10" stroke="white" stroke-width="2"/>
+            <circle cx="15" cy="15" r="4" fill="white">
+                <animate attributeName="cy" from="15" to="35" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+        </svg>
+    </div>
+</section>
+
+<section class="mission-section">
+    <div class="mission-grid">
+        <div class="mission-card">
+            <svg class="mission-icon" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <h3>What is E-Waste?</h3>
+            <p>Understanding electronic waste and its impact</p>
+        </div>
+        <div class="mission-card">
+            <svg class="mission-icon" viewBox="0 0 24 24" fill="white">
+                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+            </svg>
+            <h3>Local Challenge</h3>
+            <p>South Africa's current e-waste situation</p>
+        </div>
+        <div class="mission-card">
+            <svg class="mission-icon" viewBox="0 0 24 24" fill="white">
+                <path d="M23 12a11.05 11.05 0 00-22 0zm-5.15-4.85a7 7 0 100 9.7"/>
+            </svg>
+            <h3>Solutions</h3>
+            <p>Sustainable approaches to e-waste management</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <h2>Be Part of the Solution</h2>
+    <p>Discover how you can contribute to responsible e-waste management in South Africa</p>
+    <a href="crisis.html" class="cta-button">Learn More</a>
+</section>
+
+<script>
+// Scroll handling for nav
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 100) {
+        nav.classList.add('scrolled');
+    } else {
+        nav.classList.remove('scrolled');
+    }
+});
+
+// Smooth scroll for navigation
+document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        window.location.href = href;
+    });
+});
+</script>
+
+</body>
+</html>

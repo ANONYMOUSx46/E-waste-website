@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Crisis in South Africa | Environmental Impact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --primary: #2C5F2D;
+            --primary-dark: #1a4a1b;
+            --secondary: #97BC62;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+            --accent: #FF6B6B;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Navigation */
+        nav {
+            background-color: rgba(44, 95, 45, 0.95);
+            padding: 1.5rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem;
+            background-color: rgba(44, 95, 45, 0.98);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url('https://recyclingw.com/wp-content/uploads/2018/10/tr71823-ewaste-au.jpeg') center/cover;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(44, 95, 45, 0.3), rgba(151, 188, 98, 0.3));
+            animation: gradientShift 10s infinite alternate;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-cta {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .secondary-cta {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            padding: 8rem 2rem;
+            background: white;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        /* Chart Section */
+        .chart-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(44, 95, 45, 0.05), rgba(151, 188, 98, 0.05));
+        }
+
+        .chart-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Impact Section */
+        .impact-section {
+            padding: 8rem 2rem;
+            background: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .impact-card {
+            padding: 2rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .impact-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            fill: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes gradientShift {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                E-Waste Awareness
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="crisis.html">Crisis</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="get-involved.html">Get Involved</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">E-Waste Crisis in South Africa</h1>
+            <p class="hero-subtitle">Understanding the Challenge, Creating Solutions, Building a Sustainable Future</p>
+            <div class="cta-buttons">
+                <a href="#learn-more" class="cta-button primary-cta">Learn More</a>
+                <a href="#get-involved" class="cta-button secondary-cta">Get Involved</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="50" viewBox="0 0 30 50" fill="none">
+                <rect x="5" y="5" width="20" height="40" rx="10" stroke="white" stroke-width="2"/>
+                <circle cx="15" cy="15" r="4" fill="white">
+                    <animate attributeName="cy" from="15" to="35" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+            </svg>
+        </div>
+    </section>
+
+    <section id="learn-more" class="stats-section">
+        <h2 class="section-title">The Scale of the Crisis</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-value="360000">0</div>
+                <div class="stat-label">Tons of E-waste Generated Annually</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-value="12">0</div>
+                <div class="stat-label">Percentage of E-waste Properly Recycled</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-value="45000">0</div>
+                <div class="stat-label">Informal Waste Pickers</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="chart-section">
+        <div class="chart-container">
+            <canvas id="waste-trend"></canvas>
+        </div>
+    </section>
+
+    <section class="impact-section">
+        <h2 class="section-title">Environmental Impact</h2>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <svg class="impact-icon" viewBox="0 0 24 24">
+                    <path d="M12 3v18M3 12h18M12 8l4 4-4 4M8 12l4-4 4 4"/>
+                </svg>
+                <h3>Soil Contamination</h3>
+                <p>Heavy metals and toxic materials leach into soil, affecting agriculture and groundwater.</p>
+            </div>
+            <div class="impact-card">
+                <svg class="impact-icon" viewBox="0 0 24 24">
+                    <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/>
+                </svg>
+                <h3>Air Quality</h3>
+                <p>Improper disposal and burning of e-waste releases harmful toxins into the atmosphere.</p>
+            </div>
+            <div class="impact-card">
+                <svg class="impact-icon" viewBox="0 0 24 24">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                </svg>
+                <h3>Health Risks</h3>
+                <p>Communities near informal recycling sites face increased health risks from exposure to toxins.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero animations
+        gsap.to(".hero-title", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 0.5
+        });
+
+        gsap.to(".hero-subtitle", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 0.8
+        });
+
+        gsap.to(".cta-buttons", {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 1.1
+        });
+
+        // Stat cards animation
+        const animateValue = (element, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const current = Math.floor(progress * (end - start) + start);
+                element.textContent = current.toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        // Animate stats on scroll
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('.stat-number');
+                    const endValue = parseInt(statNumber.dataset.value);
+                    animateValue(statNumber, 0, endValue, 2000);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            statsObserver.observe(card);
+        });
+
+        // Waste trend chart
+        const ctx = document.getElementById('waste-trend').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022'],
+                datasets: [{
+                    label: 'E-waste Generation (tons)',
+                    data: [280000, 300000, 320000, 340000, 350000, 360000, 375000, 390000],
+                    borderColor: '#2C5F2D',
+                    backgroundColor: 'rgba(44, 95, 45, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'E-waste Generation Trend in South Africa',
+                        font: {
+                            size: 16,
+                            family: 'Poppins'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => value.toLocaleString() + ' tons'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+    <!-- New Solutions Section -->
+    <section class="solutions-section">
+        <style>
+            .solutions-section {
+                padding: 8rem 2rem;
+                background: linear-gradient(135deg, rgba(44, 95, 45, 0.05), rgba(151, 188, 98, 0.05));
+            }
+
+            .solutions-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .solution-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 4rem;
+            }
+
+            .solution-card {
+                background: white;
+                border-radius: 15px;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .solution-card::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: var(--gradient);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: 1;
+            }
+
+            .solution-card:hover::after {
+                opacity: 0.05;
+            }
+
+            .solution-card:hover {
+                transform: translateY(-10px);
+            }
+
+            .solution-icon {
+                font-size: 2.5rem;
+                color: var(--primary);
+                margin-bottom: 1.5rem;
+            }
+
+            .progress-container {
+                margin-top: 2rem;
+                background: #f0f0f0;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .progress-bar {
+                height: 6px;
+                background: var(--gradient);
+                width: 0;
+                transition: width 1.5s ease;
+            }
+        </style>
+
+        <div class="solutions-container">
+            <h2 class="section-title">Sustainable Solutions</h2>
+            <div class="solution-cards">
+                <div class="solution-card">
+                    <div class="solution-icon">🔄</div>
+                    <h3>Proper Recycling</h3>
+                    <p>Implementation of certified recycling facilities and processes to safely handle e-waste.</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="75"></div>
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📚</div>
+                    <h3>Education</h3>
+                    <p>Public awareness campaigns about proper e-waste disposal and environmental impact.</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="60"></div>
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">⚖️</div>
+                    <h3>Policy Reform</h3>
+                    <p>Development of comprehensive e-waste management policies and regulations.</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-progress="40"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Call to Action Section -->
+    <section class="cta-section">
+		<section class="cta-section">
+		<style>
+			/* Add these new styles */
+			.form-message {
+				margin-top: 1rem;
+				padding: 0.5rem;
+				border-radius: 4px;
+				display: none;
+				text-align: center;
+			}
+
+			.form-message.success {
+				display: block;
+				background-color: rgba(151, 188, 98, 0.1);
+				color: #97BC62;
+			}
+
+			.form-message.error {
+				display: block;
+				background-color: rgba(255, 107, 107, 0.1);
+				color: #FF6B6B;
+			}
+
+			.cta-button:disabled {
+				opacity: 0.7;
+				cursor: not-allowed;
+			}
+		</style>
+
+		<div class="cta-content">
+			<h2 class="cta-title">Join the Movement</h2>
+			<p class="cta-text">Stay updated with our latest initiatives and learn how you can contribute to solving the e-waste crisis.</p>
+			<form class="cta-form" id="subscribeForm">
+				<input type="email" class="cta-input" id="emailInput" placeholder="Enter your email address" required>
+				<button type="submit" class="cta-button">Get Involved</button>
+				<div id="formMessage" class="form-message"></div>
+			</form>
+		</div>
+</section>
+
+    <!-- New Footer Section -->
+    <footer class="footer">
+        <style>
+            .footer {
+                background: var(--dark);
+                color: white;
+                padding: 4rem 2rem;
+            }
+
+            .footer-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 3rem;
+            }
+
+            .footer-section h3 {
+                color: var(--secondary);
+                margin-bottom: 1.5rem;
+            }
+
+            .footer-links {
+                list-style: none;
+            }
+
+            .footer-links li {
+                margin-bottom: 0.5rem;
+            }
+
+            .footer-links a {
+                color: white;
+                text-decoration: none;
+                opacity: 0.8;
+                transition: all 0.3s ease;
+            }
+
+            .footer-links a:hover {
+                opacity: 1;
+                color: var(--secondary);
+            }
+
+            .social-links {
+                display: flex;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .social-icon:hover {
+                background: var(--secondary);
+                transform: translateY(-3px);
+            }
+
+            .footer-bottom {
+                margin-top: 3rem;
+                padding-top: 2rem;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                text-align: center;
+                opacity: 0.8;
+            }
+        </style>
+
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Working towards a sustainable future through proper e-waste management and environmental conservation in South Africa.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About the Crisis</a></li>
+                    <li><a href="#">Our Solutions</a></li>
+                    <li><a href="#">Get Involved</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li>📍 Cape Town, South Africa</li>
+                    <li>📧 contact email: liamjudedewet85@gmail.com</li>
+                    <li>📞 +27 (0) 66 282 4575</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 E-Waste Awareness. Created by Liam Jude De Wet. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animate progress bars
+        const progressBars = document.querySelectorAll('.progress-bar');
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progress = entry.target.dataset.progress;
+                    entry.target.style.width = `${progress}%`;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        progressBars.forEach(bar => {
+            progressObserver.observe(bar);
+        });
+    </script>
+	
+	<script>
+		document.getElementById('subscribeForm').addEventListener('submit', async function(e) {
+			e.preventDefault();
+        
+			const email = document.getElementById('emailInput').value;
+			const messageDiv = document.getElementById('formMessage');
+			const submitButton = this.querySelector('button[type="submit"]');
+        
+			// Disable button during submission
+			submitButton.disabled = true;
+			submitButton.textContent = 'Subscribing...';
+        
+			try {
+				const response = await fetch('http://localhost:3000/subscribe', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ email })
+				});
+            
+				const data = await response.json();
+            
+				if (response.ok) {
+					messageDiv.textContent = 'Thank you for subscribing!';
+					messageDiv.className = 'form-message success';
+					document.getElementById('emailInput').value = '';
+				} else {
+					messageDiv.textContent = data.error || 'Something went wrong. Please try again.';
+					messageDiv.className = 'form-message error';
+				}
+			} catch (error) {
+				messageDiv.textContent = 'Connection error. Please try again later.';
+				messageDiv.className = 'form-message error';
+			} finally {
+				submitButton.disabled = false;
+				submitButton.textContent = 'Get Involved';
+			}
+		});
+	</script>
+</body>
+</html>
