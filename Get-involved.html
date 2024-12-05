@@ -693,8 +693,10 @@
 		<div class="cta-content">
 			<h2 class="cta-title">Join the Movement</h2>
 			<p class="cta-text">Stay updated with our latest initiatives and learn how you can contribute to solving the e-waste crisis.</p>
-			<form class="cta-form" id="subscribeForm">
-				<input type="email" class="cta-input" id="emailInput" placeholder="Enter your email address" required>
+			<form class="cta-form" id="subscribeForm" name="subscribe" netlify netlify-honeypot="bot-field">
+				<input type="hidden" name="form-name" value="subscribe">
+				<input type="hidden" name="bot-field">
+				<input type="email" class="cta-input" name="email" id="emailInput" placeholder="Enter your email address" required>
 				<button type="submit" class="cta-button">Get Involved</button>
 				<div id="formMessage" class="form-message"></div>
 			</form>
