@@ -96,7 +96,7 @@
             align-items: center;
             justify-content: center;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                        url('/api/placeholder/1920/1080') center/cover;
+                        url('https://recyclingw.com/wp-content/uploads/2018/10/tr71823-ewaste-au.jpeg') center/cover;
             color: white;
             position: relative;
             overflow: hidden;
@@ -329,8 +329,7 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="crisis.html">Crisis</a></li>
-                <li><a href="solutions.html">Solutions</a></li>
-                <li><a href="get-involved.html">Get Involved</a></li>
+
             </ul>
         </div>
     </nav>
@@ -627,34 +626,68 @@
     </section>
 
     <!-- New Call to Action Section -->
-    <section class="cta-section">
+    <section  id="get-involved" class="cta-section">
 		<section class="cta-section">
 		<style>
-			/* Add these new styles */
+			/* new styles */
+			 
+			:root {
+				--success-bg: rgba(151, 188, 98, 0.2);
+				--success-text: #97BC62;
+				--error-bg: rgba(255, 107, 107, 0.2);
+				--error-text: #FF6B6B;
+				--disabled-opacity: 0.7;
+				--disabled-cursor: not-allowed;
+				--border-radius: 4px;
+				--padding: 0.5rem;
+				--margin-top: 1rem;
+				--font-size: 1rem;
+			}
+
+			/* Form Message Styling */
 			.form-message {
-				margin-top: 1rem;
-				padding: 0.5rem;
-				border-radius: 4px;
+				margin-top: var(--margin-top);
+				padding: var(--padding);
+				border-radius: var(--border-radius);
 				display: none;
 				text-align: center;
+				font-size: var(--font-size);
+				transition: all 0.3s ease;
 			}
 
 			.form-message.success {
 				display: block;
-				background-color: rgba(151, 188, 98, 0.1);
-				color: #97BC62;
+				background-color: var(--success-bg);
+				color: var(--success-text);
 			}
 
 			.form-message.error {
 				display: block;
-				background-color: rgba(255, 107, 107, 0.1);
-				color: #FF6B6B;
+				background-color: var(--error-bg);
+				color: var(--error-text);
 			}
 
+			/* Button Styling */
 			.cta-button:disabled {
-				opacity: 0.7;
-				cursor: not-allowed;
+				opacity: var(--disabled-opacity);
+				cursor: var(--disabled-cursor);
+				background-color: #ccc;
 			}
+
+			.cta-button {
+				padding: var(--padding);
+				border: none;
+				border-radius: var(--border-radius);
+				font-size: var(--font-size);
+				transition: background-color 0.3s ease, color 0.3s ease;
+			}
+
+			.cta-button:hover:not(:disabled) {
+				background-color: var(--success-text);
+				color: white;
+			}
+			
+			.cta-content { background: var(--light); /* Use your theme's light background color */ padding: 2rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); text-align: center; margin: 2rem auto; max-width: 600px; } .cta-title { font-size: 2rem; color: var(--primary); margin-bottom: 1rem; } .cta-text { font-size: 1rem; color: var(--dark); margin-bottom: 2rem; } .cta-form { display: flex; flex-direction: column; gap: 1rem; } .cta-input { padding: 0.75rem; border: 1px solid var(--primary); border-radius: 4px; font-size: 1rem; color: var(--dark); } .cta-input::placeholder { color: var(--dark); } .cta-button { padding: 0.75rem; border: none; border-radius: 4px; background: var(--primary); color: white; font-size: 1rem; cursor: pointer; transition: background 0.3s ease; } .cta-button:hover { background: var(--primary-dark); } .form-message { margin-top: 1rem; padding: 0.5rem; border-radius: 4px; display: none; text-align: center; transition: all 0.3s ease; } .form-message.success { display: block; background-color: rgba(151, 188, 98, 0.1); color: #97BC62; } .form-message.error { display: block; background-color: rgba(255, 107, 107, 0.1); color: #FF6B6B; }
 		</style>
 
 		<div class="cta-content">
@@ -666,6 +699,7 @@
 				<div id="formMessage" class="form-message"></div>
 			</form>
 		</div>
+
 </section>
 
     <!-- New Footer Section -->
@@ -779,13 +813,13 @@
                 <h3>Contact Info</h3>
                 <ul class="footer-links">
                     <li>📍 Cape Town, South Africa</li>
-                    <li>📧 info@ewaste-awareness.org</li>
-                    <li>📞 +27 (0) 21 123 4567</li>
+                    <li>📧 contact email: liamjudedewet85@gmail.com</li>
+                    <li>📞 +27 (0) 66 282 4575</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 E-Waste Awareness. All rights reserved.</p>
+            <p>&copy; 2024 E-Waste Awareness. Created by Liam Jude De Wet. All rights reserved.</p>
         </div>
     </footer>
 
