@@ -841,44 +841,50 @@
     </script>
 	
 	<script>
-		document.getElementById('subscribeForm').addEventListener('submit', async function(e) {
-			e.preventDefault();
-        
-			const email = document.getElementById('emailInput').value;
-			const messageDiv = document.getElementById('formMessage');
-			const submitButton = this.querySelector('button[type="submit"]');
-        
-			// Disable button during submission
-			submitButton.disabled = true;
-			submitButton.textContent = 'Subscribing...';
-        
-			try {
-				const response = await fetch('http://localhost:3000/subscribe', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ email })
-				});
-            
-				const data = await response.json();
-            
-				if (response.ok) {
-					messageDiv.textContent = 'Thank you for subscribing!';
-					messageDiv.className = 'form-message success';
-					document.getElementById('emailInput').value = '';
-				} else {
-					messageDiv.textContent = data.error || 'Something went wrong. Please try again.';
-					messageDiv.className = 'form-message error';
-				}
-			} catch (error) {
-				messageDiv.textContent = 'Connection error. Please try again later.';
-				messageDiv.className = 'form-message error';
-			} finally {
-				submitButton.disabled = false;
-				submitButton.textContent = 'Get Involved';
-			}
-		});
-	</script>
+document.getElementById('subscribeForm').setAttribute('netlify', '');
+document.getElementById('subscribeForm').setAttribute('netlify-honeypot', 'bot-field');
+document.getElementById('subscribeForm').innerHTML = `
+    <input type="hidden" name="form-name" value="subscribe">
+    <input type="hidden" name="bot-field">
+    <input type="email" class="cta-input" name="email" id="emailInput" placeholder="Enter your email address" required>
+    <button type="submit" class="cta-button">Get Involved</button>
+    <div id="formMessage" class="form-message"></div>
+`;
+
+document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+    const messageDiv = document.getElementById('formMessage');
+    const submitButton = this.querySelector('button[type="submit"]');
+    
+    // Disable button during submission
+    submitButton.disabled = true;
+    submitButton.textContent = 'Subscribing...';
+    
+    // Use built-in form submission
+    fetch('/', {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/x-www-form-urlencoded' }
+    })
+    .then(response => {
+        if (response.ok) {
+            messageDiv.textContent = 'Thank you for subscribing!';
+            messageDiv.className = 'form-message success';
+            document.getElementById('emailInput').value = '';
+        } else {
+            throw new Error('Submission failed');
+        }
+    })
+    .catch(error => {
+        messageDiv.textContent = 'Something went wrong. Please try again.';
+        messageDiv.className = 'form-message error';
+    })
+    .finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Get Involved';
+    });
+    
+    e.preventDefault();
+});
+</script>
 </body>
 </html>
